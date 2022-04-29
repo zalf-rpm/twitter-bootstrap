@@ -1,5 +1,6 @@
 (ns hoplon.twitter.bootstrap
-  (:require [hoplon.core :as h]))
+  (:require [javelin.core :as j :refer [cell cell=]]
+            [hoplon.core :as h]))
 
 (def ^:private cols-prefixes
   (for [i [:xs :sm :md :lg] j (range 1 13)]
@@ -22,14 +23,14 @@
 (defn- do-classes [elem key val]
   (h/do! elem :class (merge (cols-reset key) (mkcol-key key val))))
 
-(defmethod do! :col    [elem key val] (do-classes elem key val))
-(defmethod do! :offset [elem key val] (do-classes elem key val))
-(defmethod do! :push   [elem key val] (do-classes elem key val))
-(defmethod do! :pull   [elem key val] (do-classes elem key val))
+(defmethod h/do! :col    [elem key val] (do-classes elem key val))
+(defmethod h/do! :offset [elem key val] (do-classes elem key val))
+(defmethod h/do! :push   [elem key val] (do-classes elem key val))
+(defmethod h/do! :pull   [elem key val] (do-classes elem key val))
 
-(defmethod do! :success [elem _ val] (h/do! elem :class {:has-success (boolean val)}))
-(defmethod do! :warning [elem _ val] (h/do! elem :class {:has-warning (boolean val)}))
-(defmethod do! :error   [elem _ val] (h/do! elem :class {:has-error   (boolean val)}))
+(defmethod h/do! :success [elem _ val] (h/do! elem :class {:has-success (boolean val)}))
+(defmethod h/do! :warning [elem _ val] (h/do! elem :class {:has-warning (boolean val)}))
+(defmethod h/do! :error   [elem _ val] (h/do! elem :class {:has-error   (boolean val)}))
 
 (h/defelem container       [attr kids] (h/div :class "container" attr kids))
 (h/defelem form-horizontal [attr kids] (h/form :role "form" :class "form-horizontal" attr kids))
